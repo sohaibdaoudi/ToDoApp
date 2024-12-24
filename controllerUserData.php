@@ -116,10 +116,9 @@ if (isset($_POST['change-password'])) {
         // No errors, proceed with password change
         $email = $_SESSION['email']; // Get the user's email from session
         $encpass = password_hash($password, PASSWORD_BCRYPT);
-        $code = 0; // Reset backup code
         
         // Update password in the database
-        $update_pass = "UPDATE usertable SET backup_code = $code, password = '$encpass' WHERE email = '$email'";
+        $update_pass = "UPDATE usertable SET password = '$encpass' WHERE email = '$email'";
         $run_query = mysqli_query($con, $update_pass);
         
         if ($run_query) {
