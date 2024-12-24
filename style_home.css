@@ -182,3 +182,186 @@ body{
   width: (100% - 70px);
   margin-left: 70px;
 }
+
+
+
+/* this is for tasks input */
+.main_container .task_input {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.main_container .task_input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.main_container .task_input button {
+  padding: 10px 15px;
+  background-color: #267FFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.main_container .task_input button:hover {
+  background-color: #0056b3;
+}
+
+.main_container .task_list .task {
+  background: #fff;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main_container .task_list .task button {
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.main_container .task_list .task button:hover {
+  color: #b30000;
+}
+
+.main_container .task_list .task {
+  background: #fff;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main_container .task_list .task button {
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.main_container .task_list .task button.complete {
+  background: #28a745;
+  color: white;
+}
+
+.main_container .task_list .task button.complete:hover {
+  background: #218838;
+}
+
+.main_container .task_list .task button.dismiss {
+  background: #dc3545;
+  color: white;
+}
+
+.main_container .task_list .task button.dismiss:hover {
+  background: #c82333;
+}
+
+.main_container .task_list .task.completed {
+  text-decoration: line-through;
+  color: gray;
+  opacity: 0.7;
+}
+
+.main_container .task_list .task.dismissed {
+  display: none; /* Hidden */
+}
+
+/* for the completed and dismissed lists */
+.main_container h3 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #267FFF;
+}
+
+.completed_list,
+.dismissed_list {
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  min-height: 50px;
+}
+
+.completed_list .task,
+.dismissed_list .task {
+  background: #fff;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.completed_list .task {
+  text-decoration: line-through;
+  color: gray;
+  opacity: 0.7;
+}
+
+.collapsible {
+  cursor: pointer;
+  padding: 10px;
+  background: #ffffff;
+  color: white;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.collapsible:hover {
+  background: #1b5fb8;
+}
+
+.collapsible:after {
+  content: "▼";
+  float: right;
+  font-size: 12px;
+}
+
+.collapsible.active:after {
+  content: "▲";
+}
+
+.completed_list,
+.dismissed_list {
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: none; /* Initially hidden */
+}
+
+.completed_list .task,
+.dismissed_list .task {
+  background: #fff;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.completed_list .task {
+  text-decoration: line-through;
+  color: gray;
+  opacity: 0.7;
+}
+
