@@ -72,7 +72,7 @@ if (isset($_POST['login'])) {
     }
 }
 
-
+// click forget password
 if (isset($_POST['check-code'])) {
     // Retrieve user input
     $email = mysqli_real_escape_string($con, $_POST['email']); // Email entered by the user
@@ -119,7 +119,7 @@ if (isset($_POST['change-password'])) {
         $code = 0; // Reset backup code
         
         // Update password in the database
-        $update_pass = "UPDATE usertable SET code = $code, password = '$encpass' WHERE email = '$email'";
+        $update_pass = "UPDATE usertable SET backup_code = $code, password = '$encpass' WHERE email = '$email'";
         $run_query = mysqli_query($con, $update_pass);
         
         if ($run_query) {
