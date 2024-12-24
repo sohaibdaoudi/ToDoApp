@@ -79,8 +79,12 @@ if($email != false && $password != false){
   <div class="main_container">
     <div class="task_input">
       <input type="text" id="taskInput" placeholder="Add a new task..." />
-      <button id="addTaskButton">Add</button>
+      <input type="date" id="taskDate" />
+      <button id="addTaskButton">
+        <i class="fas fa-calendar-plus"></i> Add
+      </button>
     </div>
+    
     <div class="task_list" id="taskList">
       <!-- Tasks will appear here -->
     </div>
@@ -115,14 +119,16 @@ if($email != false && $password != false){
 
 
   document.addEventListener('DOMContentLoaded', () => {
-    const taskInput = document.getElementById('taskInput');
-    const addTaskButton = document.getElementById('addTaskButton');
-    const taskList = document.getElementById('taskList');
-    const completedList = document.getElementById('completedList');
-    const dismissedList = document.getElementById('dismissedList');
+  const taskInput = document.getElementById('taskInput');
+  const taskDate = document.getElementById('taskDate');
+  const addTaskButton = document.getElementById('addTaskButton');
+  const taskList = document.getElementById('taskList');
+  const completedList = document.getElementById('completedList');
+  const dismissedList = document.getElementById('dismissedList');
 
-    // Make sections collapsible
-    const collapsibleHeaders = document.querySelectorAll('.collapsible');
+
+//for collapsing completed or tasks lists
+  const collapsibleHeaders = document.querySelectorAll('.collapsible');
     collapsibleHeaders.forEach(header => {
       header.addEventListener('click', () => {
         const nextElement = header.nextElementSibling;
@@ -131,61 +137,71 @@ if($email != false && $password != false){
       });
     });
 
-    // Function to create a new task
-    const createTask = (taskText) => {
-      const task = document.createElement('div');
-      task.classList.add('task');
-      task.innerHTML = `
-        <span>${taskText}</span>
-        <div>
-          <button class="complete">Completed</button>
-          <button class="dismiss">Dismissed</button>
-        </div>
-      `;
 
-      // Add "Completed" functionality
-      task.querySelector('.complete').addEventListener('click', () => {
-        task.remove();
-        const completedTask = task.cloneNode(true);
-        completedTask.querySelector('.complete').remove(); // Remove "Completed" button
-        completedTask.querySelector('.dismiss').remove(); // Remove "Dismissed" button
-        completedList.appendChild(completedTask);
-      });
+  // Function to create a new task
+  const createTask = (taskText, taskDateValue) => {
+    const task = document.createElement('div');
+    task.classList.add('task');
+    task.innerHTML = `
+      <span>${taskText} <small>${taskDateValue ? `(Due: ${taskDateValue})` : ''}</small></span>
+      <div>
+        <button class="complete"><i class="fa-solid fa-check"></i></button>
+        <button class="dismiss"><i class="fa-solid fa-trash-can"></i></button>
+        <button class="star">
+          <i class="fas fa-star"></i>
+        </button>
+      </div>
+    `;
 
-      // Add "Dismissed" functionality
-      task.querySelector('.dismiss').addEventListener('click', () => {
-        task.remove();
-        const dismissedTask = task.cloneNode(true);
-        dismissedTask.querySelector('.complete').remove(); // Remove "Completed" button
-        dismissedTask.querySelector('.dismiss').remove(); // Remove "Dismissed" button
-        dismissedList.appendChild(dismissedTask);
-      });
-
-      return task;
-    };
-
-    // Add a new task when clicking the "Add" button
-    addTaskButton.addEventListener('click', () => {
-      const taskText = taskInput.value.trim();
-      if (taskText === '') {
-        alert('Please enter a task!');
-        return;
-      }
-
-      const task = createTask(taskText);
-      taskList.appendChild(task);
-
-      // Clear the input
-      taskInput.value = '';
+    // Add "Completed" functionality
+    task.querySelector('.complete').addEventListener('click', () => {
+      task.remove();
+      const completedTask = task.cloneNode(true);
+      completedTask.querySelector('.complete').remove(); // Remove "Completed" button
+      completedTask.querySelector('.dismiss').remove(); // Remove "Dismissed" button
+      completedTask.querySelector('.star').remove(); // Remove "Star" button
+      completedList.appendChild(completedTask);
     });
 
-    // Allow pressing Enter to add a task
-    taskInput.addEventListener('keypress', (event) => {
-      if (event.key === 'Enter') {
-        addTaskButton.click();
-      }
+    // Add "Dismissed" functionality
+    task.querySelector('.dismiss').addEventListener('click', () => {
+      task.remove();
+      const dismissedTask = task.cloneNode(true);
+      dismissedTask.querySelector('.complete').remove(); // Remove "Completed" button
+      dismissedTask.querySelector('.dismiss').remove(); // Remove "Dismissed" button
+      dismissedTask.querySelector('.star').remove(); // Remove "Star" button
+      dismissedList.appendChild(dismissedTask);
     });
+
+    return task;
+  };
+
+  // Add a new task when clicking the "Add" button
+  addTaskButton.addEventListener('click', () => {
+    const taskText = taskInput.value.trim();
+    const taskDateValue = taskDate.value.trim();
+
+    if (taskText === '') {
+      alert('Please enter a task!');
+      return;
+    }
+
+    const task = createTask(taskText, taskDateValue);
+    taskList.appendChild(task);
+
+    // Clear the input
+    taskInput.value = '';
+    taskDate.value = '';
   });
+
+  // Allow pressing Enter to add a task
+  taskInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      addTaskButton.click();
+    }
+  });
+});
+
 
 
 
