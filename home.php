@@ -3,15 +3,17 @@
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
 
-// Ensure the user is logged in
+// Ensure the user is logged in and get the name of user
 if($email != false && $password != false){
-    $sql = "SELECT * FROM usertable WHERE email = '$email'";
-    $run_Sql = mysqli_query($con, $sql);
-    if($run_Sql){
-        $fetch_info = mysqli_fetch_assoc($run_Sql);
-    }
+  $sql = "SELECT * FROM usertable WHERE email = '$email'";
+  $run_Sql = mysqli_query($con, $sql);
+  if($run_Sql){
+      $fetch_info = mysqli_fetch_assoc($run_Sql);
+      $name = $fetch_info['name'];
+  }
 }else{
-    header('Location: login-user.php'); // Redirect to login if session is invalid
+  header('Location: login-user.php');
+  exit();
 }
 ?>
 
@@ -27,7 +29,7 @@ if($email != false && $password != false){
 </head>
 <body>
 
-<div class="container_navbar">
+<div class="container">
   <div class="navbar">
     <div class="icon_sidebar">
        <div class="one"></div>
@@ -40,7 +42,7 @@ if($email != false && $password != false){
         <p>Do It</p>
     </div>
      <ul>
-        <p>Username</p>
+        <p><?php echo htmlspecialchars($name);?></p>
         <li>
           <a href="#">
             <i class="fas fa-user"></i>
@@ -77,14 +79,29 @@ if($email != false && $password != false){
   </div>
   
   <div class="main_container">
-    <div class="task_input">
-      <input type="text" id="taskInput" placeholder="Add a new task..." />
-      <input type="date" id="taskDate" />
-      <button id="addTaskButton">
-        <i class="fas fa-calendar-plus"></i> Add
-      </button>
+
+    <div class="first-line">
+      <div class="datetime">
+        <h1 style="font-weight:normal">My Day</h1>
+        <div class="date"></div>
+        <div class="time"></div>
+      </div>
     </div>
     
+    <div class="line"></div>
+   
+    <div class="task_input">
+      <input type="text" id="taskInput" placeholder="Add a new task..." />
+      <button id="addTaskButton">Add</button>
+    </div>
+    
+    <div class="time_data" style="display: none;">
+      <input type="date" id="taskDate" />
+      <input type="time" id="taskTime" />
+    </div>
+
+  
+
     <div class="task_list" id="taskList">
       <!-- Tasks will appear here -->
     </div>
@@ -106,106 +123,7 @@ if($email != false && $password != false){
 </div>
 	
 
-<script>
-//for sidebar collapse
-  document.addEventListener('DOMContentLoaded', () => {
-    const iconSidebar = document.querySelector('.icon_sidebar');
-    const containerNavbar = document.querySelector('.container_navbar');
-
-    iconSidebar.addEventListener('click', () => {
-      containerNavbar.classList.toggle('collapse');
-    });
-  });
-
-
-  document.addEventListener('DOMContentLoaded', () => {
-  const taskInput = document.getElementById('taskInput');
-  const taskDate = document.getElementById('taskDate');
-  const addTaskButton = document.getElementById('addTaskButton');
-  const taskList = document.getElementById('taskList');
-  const completedList = document.getElementById('completedList');
-  const dismissedList = document.getElementById('dismissedList');
-
-
-//for collapsing completed or tasks lists
-  const collapsibleHeaders = document.querySelectorAll('.collapsible');
-    collapsibleHeaders.forEach(header => {
-      header.addEventListener('click', () => {
-        const nextElement = header.nextElementSibling;
-        header.classList.toggle('active');
-        nextElement.style.display = nextElement.style.display === 'none' || !nextElement.style.display ? 'block' : 'none';
-      });
-    });
-
-
-  // Function to create a new task
-  const createTask = (taskText, taskDateValue) => {
-    const task = document.createElement('div');
-    task.classList.add('task');
-    task.innerHTML = `
-      <span>${taskText} <small>${taskDateValue ? `(Due: ${taskDateValue})` : ''}</small></span>
-      <div>
-        <button class="complete"><i class="fa-solid fa-check"></i></button>
-        <button class="dismiss"><i class="fa-solid fa-trash-can"></i></button>
-        <button class="star">
-          <i class="fas fa-star"></i>
-        </button>
-      </div>
-    `;
-
-    // Add "Completed" functionality
-    task.querySelector('.complete').addEventListener('click', () => {
-      task.remove();
-      const completedTask = task.cloneNode(true);
-      completedTask.querySelector('.complete').remove(); // Remove "Completed" button
-      completedTask.querySelector('.dismiss').remove(); // Remove "Dismissed" button
-      completedTask.querySelector('.star').remove(); // Remove "Star" button
-      completedList.appendChild(completedTask);
-    });
-
-    // Add "Dismissed" functionality
-    task.querySelector('.dismiss').addEventListener('click', () => {
-      task.remove();
-      const dismissedTask = task.cloneNode(true);
-      dismissedTask.querySelector('.complete').remove(); // Remove "Completed" button
-      dismissedTask.querySelector('.dismiss').remove(); // Remove "Dismissed" button
-      dismissedTask.querySelector('.star').remove(); // Remove "Star" button
-      dismissedList.appendChild(dismissedTask);
-    });
-
-    return task;
-  };
-
-  // Add a new task when clicking the "Add" button
-  addTaskButton.addEventListener('click', () => {
-    const taskText = taskInput.value.trim();
-    const taskDateValue = taskDate.value.trim();
-
-    if (taskText === '') {
-      alert('Please enter a task!');
-      return;
-    }
-
-    const task = createTask(taskText, taskDateValue);
-    taskList.appendChild(task);
-
-    // Clear the input
-    taskInput.value = '';
-    taskDate.value = '';
-  });
-
-  // Allow pressing Enter to add a task
-  taskInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-      addTaskButton.click();
-    }
-  });
-});
-
-
-
-
-</script>
+<script src="homepage.js"></script>
 
 </body>
 </html>
