@@ -12,10 +12,10 @@
 body{
   background: #e1ecf2;
 }
-.container_navbar{
+.container{
   margin: 10px;
 }
-.container_navbar .navbar{
+.container .navbar{
   width: calc(100% - 20px);
   height: 60px;
   display: flex;
@@ -23,7 +23,7 @@ body{
   top: 10px;
 }
 
-.container_navbar .navbar .icon_sidebar{
+.container .navbar .icon_sidebar{
   width: 70px;
   height: 100%;
   background: #267FFF;
@@ -32,7 +32,11 @@ body{
   cursor: pointer;
 }
 
-.container_navbar .navbar .icon_sidebar div{
+.container .navbar .icon_sidebar:hover{
+  background: #4c96ff;
+}
+
+.container .navbar .icon_sidebar div{
   width: 35px;
   height: 4px;
   background: white;
@@ -40,7 +44,7 @@ body{
   border-radius: 5px;
 }
 
-.container_navbar .navbar .welcome{
+.container .navbar .welcome{
   width: calc(100% - 70px);
   height: 100%;
   background: #fff;
@@ -52,31 +56,31 @@ body{
   box-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
 
-.container_navbar .navbar .welcome .logo{
+.container .navbar .welcome .logo{
   display:flex;
   align-items:center;
 }
 
-.container_navbar .navbar .welcome .logo p {
+.container .navbar .welcome .logo p {
   color: #267FFF;
   font-size: 20px;
   font-weight: 700;
 }
 
-.container_navbar .navbar .welcome .logo img{
+.container .navbar .welcome .logo img{
   width:4.5em;
 }
 
-.container_navbar .navbar .welcome ul{
+.container .navbar .welcome ul{
   display: flex;
   align-items:center;
 }
 
-.container_navbar .navbar .welcome ul p{
+.container .navbar .welcome ul p{
   color: #267FFF;
   font-size: 18px;
 }
-.container_navbar .navbar .welcome ul li a{
+.container .navbar .welcome ul li a{
   display: block;
   margin: 0 10px;
   width: 35px;
@@ -88,16 +92,16 @@ body{
   color: #267FFF;
 }
 
-.container_navbar .navbar .welcome ul li a:hover{
+.container .navbar .welcome ul li a:hover{
   background: #267FFF;
   color: #fff;
 }
 
-.container_navbar .navbar .welcome ul li a:hover i{
+.container .navbar .welcome ul li a:hover i{
   color: #fff;
 }
 
-.container_navbar .sidebar{
+.container .sidebar{
   position: fixed;
   top: 70px;
   left: 10px;
@@ -108,7 +112,7 @@ body{
   transition: all 0.3s ease;
 }
 
-.container_navbar .sidebar ul li a{
+.container .sidebar ul li a{
     display: block;
     padding: 20px;
     color: white;
@@ -117,7 +121,8 @@ body{
     white-space: nowrap;
 }
 
-.container_navbar .sidebar ul li a:before{
+
+.container .sidebar ul li a:before{
   content: "";
   position: absolute;
   top: 0;
@@ -128,59 +133,70 @@ body{
   display: none;
 }
 
-.container_navbar .sidebar ul li a span.icon{
+.container .sidebar ul li a span.icon{
   margin-right: 10px;
   display: inline-block;
 }
 
-.container_navbar .sidebar ul li a span.title{
+.container .sidebar ul li a span.title{
   display: inline-block;
 }
 
-.container_navbar .sidebar ul li a:hover{
-  background: #267FFF;
+.container .sidebar ul li a:hover{
+  background: #4c96ff;
   color: #fff;
 }
 
-.container_navbar .sidebar ul li a:hover:before{
+.container .sidebar ul li a:hover:before{
   display: block;
 }
 
-.container_navbar .main_container{
+.container .main_container{
   width: (100% - 200px);
   margin-top: 70px;
-  margin-left: 200px;
+  margin-left: 205px;
   padding: 15px;
   transition: all 0.3s ease;
 }
 
-.container_navbar .main_container .task{
-  background: #fff;
-  margin-bottom: 10px;
-  padding: 15px;
-  font-size: 14px;
-  line-height: 22px;
-}
 
-.container_navbar.collapse .sidebar{
+.container.collapse .sidebar{
   width: 70px;
 }
 
-.container_navbar.collapse .sidebar ul li a{
+.container.collapse .sidebar ul li a{
   text-align: center; 
 }
 
-.container_navbar.collapse .sidebar ul li a span.icon{
+.container.collapse .sidebar ul li a span.icon{
   margin: 0;
 }
 
-.container_navbar.collapse .sidebar ul li a span.title{
+.container.collapse .sidebar ul li a span.title{
   display: none;
 }
 
-.container_navbar.collapse .main_container{
+.container.collapse .main_container{
   width: (100% - 70px);
   margin-left: 70px;
+}
+
+
+/* style time and first line */
+.main_container .time,.main_container .date {
+  color: gray;
+  margin:0;
+}
+
+.main_container .date{
+  font-size:20px
+}
+
+.line {
+  border-bottom: 1px solid rgba(125, 125, 125,0.4);
+  margin-bottom: 15px;
+  margin-top: 3px;
+  width: 100%;
 }
 
 
@@ -188,42 +204,64 @@ body{
 /* this is for tasks input */
 .main_container .task_input {
   display: flex;
-  margin-bottom: 15px;
+  align-items:center;
+  justify-content:space-between;
+
 }
 
 .main_container .task_input input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: none;
+  outline:none;
+  background:white;
   font-size: 16px;
-  margin-right: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .main_container .task_input button {
-  padding: 10px 15px;
-  background-color: #267FFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  background: #267FFF;
+  color:white;
+  padding:10px ;
+  border:none;
+  width: 100px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+
 }
 
 .main_container .task_input button:hover {
   background-color: #0056b3;
 }
 
-.main_container .task_list .task {
-  background: #fff;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.main_container .time_data{
+  padding: 5px 10px;
+  background-color: #FAF9F8;
+  border-top: 1px solid #EDEBEA;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
+
+#taskDate,
+#taskTime {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+#taskDate:focus,
+#taskTime:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
 
 .main_container .task_list .task button {
   background: none;
@@ -231,6 +269,7 @@ body{
   color: #ff4d4d;
   font-size: 16px;
   cursor: pointer;
+  height: 100%;
 }
 
 .main_container .task_list .task button:hover {
@@ -239,23 +278,24 @@ body{
 
 .main_container .task_list .task {
   background: #fff;
-  padding: 10px 15px;
-  margin-bottom: 10px;
+  padding-left:15px;
+  margin: 5px 0;
   border: 1px solid #ddd;
-  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 5px;
 }
 
 .main_container .task_list .task button {
   background: none;
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 12px 10px;
   cursor: pointer;
   font-size: 14px;
+  margin-left: -3px;
 }
+
 
 .main_container .task_list .task button.complete {
   background: #28a745;
@@ -269,6 +309,8 @@ body{
 .main_container .task_list .task button.dismiss {
   background: #dc3545;
   color: white;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .main_container .task_list .task button.dismiss:hover {
@@ -288,18 +330,8 @@ body{
 /* for the completed and dismissed lists */
 .main_container h3 {
   margin-top: 20px;
-  font-size: 18px;
-  color: #267FFF;
 }
 
-.completed_list,
-.dismissed_list {
-  background: #f9f9f9;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  min-height: 50px;
-}
 
 .completed_list .task,
 .dismissed_list .task {
@@ -320,15 +352,16 @@ body{
   cursor: pointer;
   padding: 10px;
   background: #ffffff;
-  color: white;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   margin-top: 20px;
   font-size: 16px;
+  transition: all 0.1s ease;
 }
 
 .collapsible:hover {
-  background: #1b5fb8;
-}
+  box-shadow: inset 0 0 0 0.5px #267FFF;
+ }
 
 .collapsible:after {
   content: "▼";
@@ -342,11 +375,13 @@ body{
 
 .completed_list,
 .dismissed_list {
-  background: #f9f9f9;
+  background: #FAF9F8;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px; 
+  margin-top: 0;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-top: 10px;
+  min-height: 50px;
+  border-top: 1px solid #EDEBEA;
   display: none; /* Initially hidden */
 }
 
@@ -365,36 +400,3 @@ body{
   opacity: 0.7;
 }
 
-
-.task_input input[type="date"] {
-  width: 120px; /* Adjust width to make it smaller */
-  padding: 5px;
-  font-size: 14px; /* Smaller font size */
-  text-align: center; /* Center the date text */
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-left: 10px;
-}
-
-.task_input input[type="text"] {
-  width: calc(100% - 150px); /* Adjust width to account for date input and button */
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.task_input button {
-  padding: 8px 12px;
-  font-size: 16px;
-  margin-left: 10px;
-  border: none;
-  background-color: #4caf50;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.task_input button:hover {
-  background-color: #45a049;
-}
